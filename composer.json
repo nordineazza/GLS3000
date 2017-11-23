@@ -1,0 +1,15 @@
+{
+    "minimum-stability" : "stable",
+    "require" : {
+        "silex/silex"   : "~1.2",
+        "twig/twig"     : "~1.16",
+        "symfony/twig-bridge": "~2.6",
+        "doctrine/dbal": "^2.5"
+    },
+    "autoload" : {
+        "psr-0": {
+            "Controllers": "src/",
+            "Models"    : "src/"       
+        }
+    }
+}

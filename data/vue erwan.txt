@@ -1,0 +1,4 @@
+create view V_R_ENSEIGNANT_CHG_FCT as
+select cf.lib_chg, ls.h_td, p.nom
+from ligne_service ls , chg_fct cf, personnel p
+where ls.fid_chgfct is not null and cf.id_chg = ls.fid_chgfct and ls.fid_pers = p.id_pers

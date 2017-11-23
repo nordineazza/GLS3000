@@ -1,0 +1,323 @@
+
+<!doctype html>
+
+<html lang="en" class="no-js">
+
+<head>
+
+    <!-- meta data -->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+
+    <!-- title and favicon -->
+
+    <title>{% block title %}GLS3000{% endblock title %}</title>
+    <link rel="icon" href="{{ app.rootRoute }}/web/img/icon/fav_icon.gif">
+    
+
+    <!--necessary stylesheets -->
+
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/popup.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/owl.theme.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/style.css">    
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/jquery-ui.css" />
+
+    <link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/modernizr.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/script.js"></script>
+    <style>
+        .introduction{
+            background-image: url({{ app.rootRoute }}/web/img/logo_gls.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+
+    {% block headStyle %} {% endblock headStyle %}
+    {% block scripts%} {% endblock scripts %}
+    {% block headJS %} {% endblock headJS %}
+
+
+</head>
+
+
+<body>
+    
+    <!-- Preloader -->
+    
+    <div id="preloader">
+        <div class="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <!-- home-page -->
+    {% block accueil %}
+    <div class="home-page">
+        
+        <!-- Introduction -->
+        
+        <div class="introduction">
+            <!-- <div class="mask">
+            </div> -->
+            <div class="intro-content">
+
+                
+
+            </div>
+            
+            <!-- Social Media Icons [ END ] -->
+        </div>
+        
+        <!-- Navigation Menu -->
+        
+        <div class="menu">
+            <div class="profile-btn menu_button">
+                <img alt="" src="{{ app.rootRoute }}/web/img/about.jpg" style="width:100%; height:100%;">
+                <div class="mask">
+                </div>
+                <div class="heading">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <a href="{{path('rechercheCours')}}"><h2>Cours</h2></a>
+                </div>
+            </div>
+            
+            <!-- Single Navigation Menu Button -->
+            
+            <div class="portfolio-btn menu_button">
+                
+                    <img alt="" src="{{ app.rootRoute }}/web/img/portfolio.jpg">
+                    <div class="mask">
+                    </div>
+                    <div class="heading">
+                        <i class="fa fa-user" aria-hidden="true"></i>                        
+                        <a href="{{path('rechercheEnseignant')}}"><h2>Enseignant</h2></a>
+                    </div>
+
+            </div>
+            
+            
+            <!-- Single Navigation Menu Button [ END ]  -->
+            
+            <div class="service-btn menu_button">
+                <img alt="" src="{{ app.rootRoute }}/web/img/service.jpg">
+                <div class="mask">
+                </div>
+                <div class="heading">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <a href="{{path('rechercheStatut')}}"><h2>Statut</h2></a>
+                </div>
+            </div>
+            
+            <!-- Single Navigation Menu Button [ END ]  -->
+            
+            <div class="contact-btn menu_button">
+                <img alt="" src="{{ app.rootRoute }}/web/img/contact.jpg">
+                <div class="mask">
+                </div>
+                <div class="heading">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <a href="{{path('modif')}}"><h2>Modifications</h2></a>
+                </div>
+            </div>
+            
+            <!-- Single Navigation Menu Button [ END ]  -->
+            
+        </div>
+    </div>
+    {% endblock accueil %}   
+    <!--
+    4 ) Close Button
+    -->
+    
+    <div class="close-btn"><a href="{{path('suiviIndex')}}"><i class="fa fa-home fa-3x" aria-hidden="true" style="color : black;"></i></a></div>
+    
+    <!--
+    5 ) Profile Page
+    -->
+    {% block cours %}
+    <div id="about_us" class="profile-page container-fluid page">
+        <div class="row">
+            <!--( a ) Profile Page Fixed Image Portion -->
+
+            <div class="image-container col-md-3 col-sm-12">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>Cours</h1>
+                </div>
+            </div>
+
+            <!--( b ) Profile Page Content -->
+
+            <div class="content-container col-md-9 col-sm-12">
+
+                <!--( A ) Story of Glory -->
+
+                <div class="clearfix">
+                    <h2 class="small-heading">COURS </h2>
+
+                    <!--LA PARTIE COURS A METTRE -->
+                    <div class="row">
+                        <div class="col-md-12"><input type="text" class="form-control" placeholder="Entrer cours"/></div>
+                    </div>
+
+                </div>
+
+                <!--( D ) Footer -->
+
+
+            </div>
+        </div>
+    </div>
+    {% endblock cours %}
+
+    {% block enseignant %}
+    <div id="portfolio" class="portfolio-page container-fluid page">
+
+        <div class="row">
+
+            <!--( a ) Enseignant Page Fixed Image Portion -->
+            
+            <div class="image-container col-md-3 col-sm-12">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>Enseignant</h1>
+                </div>
+            </div>
+
+            <!--( b ) Enseignant Page Content -->
+            
+            <div class="content-container col-md-9 col-sm-12">
+                
+                <!--( A ) Enseignant -->
+                
+                <div class="portfolio clearfix full-height">
+                    <h2 class="small-heading">ENSEIGNANT</h2>
+
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                            <div class="project-container">
+                                <div class="row">
+                                    <div class="project-controls">
+                                        <button class="filter">EC</button>
+                                        <button class="filter">Charges de fonction</button>
+                                    </div>
+                                    
+                                    <!-- CONTENU ENSEIGNANT  -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% endblock enseignant %}
+    <!--
+    7 ) Service Page
+    -->
+    {% block statut %}
+    <div id="service" class="service-page container-fluid page">
+        <div class="row">
+            <!--( a ) Portfolio Page Fixed Image Portion -->
+            
+            <div class="image-container col-md-3 col-sm-12">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>Statut</h1>
+                </div>
+            </div>
+            
+            <!--( b ) Portfolio Page Content -->
+            
+            <div class="content-container col-md-9 col-sm-12">
+                
+                <!--( A ) Portfolio -->
+                
+                <div class="clearfix">
+                    <h2 class="small-heading">RECHERCHE PAR STATUT</h2>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-sm-12">
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>  
+    </div>
+    {% endblock statut %}
+    <!--
+    8 ) Contact Page
+    -->
+    {% block update %}
+    <div id="contact" class="contact-page container-fluid page">
+        <div class="row">
+            <!--( a ) Contact Page Fixed Image Portion -->
+            
+            <div class="image-container col-md-3 col-sm-12">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>Update</h1>
+                </div>
+            </div>
+            
+            <!--( b ) Contact Page Content -->
+            
+            <div class="content-container col-md-9 col-sm-12">
+                
+                <!--( A ) Contact Form -->
+                
+                <div class="clearfix full-height">
+                    <h2 class="small-heading">COME IN TOUCH</h2>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                            <div class="contact-info">
+                                <div class="row">
+                                    <p>METTRE PARTIE MODIF</p>
+                                </div>
+                                    
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+    {% endblock update %}
+    <!--  
+    9 ) Javascript
+    - -->
+    
+
+</body>
+
+</html>

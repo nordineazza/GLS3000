@@ -1,0 +1,157 @@
+{% extends 'recherche.html.twig' %}
+
+
+{% block scripts %}
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        $(function () {
+
+            var tags = {{coursJson | raw}};
+
+           $("#cours").autocomplete({
+                source:function( request, response ) {
+                    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                    response( $.grep( tags, function( item ){
+                        return matcher.test( item );
+                    }) );
+                },
+                minLength: 1
+            });
+        });
+
+
+    </script>
+
+{% endblock scripts %}
+
+{% block accueil %}
+{% endblock accueil %}
+
+{% block enseignant %}
+{% endblock enseignant %}
+
+{% block statut %}
+{% endblock statut %}
+
+{% block update %}
+{% endblock update %}
+
+{% block cours %} 
+    <div id="about_us" class="profile-page container-fluid">
+        <div class="row">
+            <!--( a ) Profile Page Fixed Image Portion -->
+
+            <div class="image-container col-md-3 col-sm-12">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>Cours</h1>
+                </div>
+            </div>
+
+            <!--( b ) Profile Page Content -->
+
+            <div class="content-container col-md-9 col-sm-12">
+
+                <!--( A ) Story of Glory -->
+
+                <div class="clearfix">
+                    <h2 class="small-heading">COURS</h2>
+
+                    <!--LA PARTIE COURS A METTRE -->
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-sm-12">
+                            <div class="row">
+
+                                {% if not recherche %}
+                                    <center>
+                                        <form class="form-inline" role="form" action="{{path('rechercheCours')}}" method="POST" style="padding-bottom: 25px;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="cours" name="cours" placeholder="Entrer le nom du cours">
+                                            </div>
+                                            <button type="submit" class="filter">Rechercher</button>
+                                        </form>
+                                    </center>
+                                {% else %}
+                                    <div class="row">
+                                        <div class="col-md-12 text-center alert alert-info">
+                                            <h3>{{coursName}}</h3>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center"> {{desc_EC.COD_ELP}} -- {{desc_EC.LIB_CMP}} -- {{annee}}   </div>
+                                                <div class="col-md-12 text-center"> {{desc_EC.H_CM}}h CM / {{desc_EC.H_TD}}h TD  </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <h2> Heures faites </h2>
+
+                                    <table id="table_id" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Groupe</th>
+                                                <th>Nom Ens</th>
+                                                <th>Prénom Ens</th>
+                                                <th>H CM</th>
+                                                <th>H TD</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for element in lignes %}
+                                                <tr>
+                                                    <td>{{element.LIB_GROUPE}}</td>
+                                                    <td>{{element.NOM}}</td>
+                                                    <td>{{element.PRENOM}}</td>
+                                                    <td>{{element.H_CM}}</td>
+                                                    <td>{{element.H_TD}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                    <h2> Synthèse </h2>
+
+                                    <table id="table_id" class="display2">
+                                        <thead>
+                                            <tr>
+                                                <th>Libellé groupe</th>
+                                                <th>Heure CM réalisées</th>
+                                                <th>Heure CM restantes</th>
+                                                <th>Heure TD réalisées</th>
+                                                <th>Heure TD restantes</th>
+                                                <th>Heure EAD réalisé</th>
+                                                <th>Heure EAD restantes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for element in cours %}
+                                                <tr>
+                                                    <td>{{element.LIB_GROUPE}}</td>
+                                                    <td>{{element.HEURE_CM_REALISE}}</td>
+                                                    <td {% if element.HEURE_CM_RESTANTE > 0 %} class="positif" {% endif%} >{{element.HEURE_CM_RESTANTE}}</td>
+                                                    <td>{{element.HEURE_TD_REALISE}}</td>
+                                                    <td {% if element.HEURE_TD_RESTANTE > 0 %} class="positif" {% endif%}>{{element.HEURE_TD_RESTANTE}}</td>
+                                                    <td>{{element.HEURE_EAD_REALISE}}</td>
+                                                    <td {% if element.HEURE_EAD_RESTANTE > 0 %} class="positif" {% endif%}>{{element.HEURE_EAD_RESTANTE}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock cours %}
