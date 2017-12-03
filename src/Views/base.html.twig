@@ -1,0 +1,170 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+
+<head>
+
+    <!-- meta data -->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name= viewport content="width=device-width, initial-scale=1">
+
+    <!-- title and favicon -->
+
+    <title>{% block title %}GLS3000{% endblock title %}</title>
+    <link rel="icon" href="{{ app.rootRoute }}/web/img/icon/fav_icon.gif">
+
+
+    <!--necessary stylesheets -->
+
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/popup.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/owl.theme.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/style.css">
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ app.rootRoute }}/web/css/jquery-ui.css"/>
+
+    <link type="text/css" rel="stylesheet"
+          href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/modernizr.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="{{ app.rootRoute }}/web/js/script.js"></script>
+    <style>
+        .introduction {
+            background-image: url({{ app.rootRoute }}/web/img/logo_gls.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+
+    {% block headStyle %} {% endblock headStyle %}
+    {% block scripts%} {% endblock scripts %}
+    {% block headJS %} {% endblock headJS %}
+
+
+</head>
+
+
+<body>
+
+<!-- Preloader -->
+
+<div id="preloader">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- home-page -->
+{% block accueil %}
+<div class="home-page">
+
+    <!-- Introduction -->
+
+    <div class="introduction">
+        <!-- <div class="mask">
+        </div> -->
+        <div class="intro-content">
+            <span style="font-size:80px">GLS</span><span style="font-size:130px" class="number">3000</span>
+            <p class="text-capitalize slogan-text"
+               style="margin-top:15px;padding-left:90px;">Université Paris Nanterre</p>
+        </div>
+
+        <!-- Social Media Icons [ END ] -->
+    </div>
+    <!-- Navigation Menu -->
+
+    <div class="menu">
+        <div class="profile-btn menu_button">
+            <img alt="" src="{{ app.rootRoute }}/web/img/about.jpg" style="width:100%; height:100%;">
+            <div class="mask">
+            </div>
+            <div class="heading">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                <a href="{{path('rechercheCours')}}"><h2>Cours</h2></a>
+            </div>
+        </div>
+
+        <!-- Single Navigation Menu Button -->
+
+        <div class="portfolio-btn menu_button">
+
+            <img alt="" src="{{ app.rootRoute }}/web/img/portfolio.jpg">
+            <div class="mask">
+            </div>
+            <div class="heading">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <a href="{{path('rechercheEnseignant')}}"><h2>Enseignant</h2></a>
+            </div>
+
+        </div>
+
+
+        <!-- Single Navigation Menu Button [ END ]  -->
+
+        <div class="service-btn menu_button">
+            <img alt="" src="{{ app.rootRoute }}/web/img/service.jpg">
+            <div class="mask">
+            </div>
+            <div class="heading">
+                <i class="fa fa-tag" aria-hidden="true"></i>
+                <a href="{{path('rechercheStatut')}}"><h2>Statut</h2></a>
+            </div>
+        </div>
+
+        <!-- Single Navigation Menu Button [ END ]  -->
+
+        <div class="contact-btn menu_button">
+            <img alt="" src="{{ app.rootRoute }}/web/img/contact.jpg">
+            <div class="mask">
+            </div>
+            <div class="heading">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <a href="{{path('modif')}}"><h2>Ligne de service</h2></a>
+            </div>
+        </div>
+
+        <!-- Single Navigation Menu Button [ END ]  -->
+
+    </div>
+</div>
+{% endblock accueil %}
+
+<div class="close-btn" style="left: 0;"><a href="{{path('suiviIndex')}}" style="padding:20px"></a></div>
+
+<!--
+1 ) Cours
+-->
+{% block cours %}
+{% endblock cours %}
+<!--
+2 ) Enseignant
+-->
+
+{% block enseignant %}
+{% endblock enseignant %}
+<!--
+3 ) Statut
+-->
+{% block statut %}
+{% endblock statut %}
+<!--
+4 ) Lignes de services
+-->
+{% block update %}
+{% endblock update %}
+
+</body>
+
+</html>

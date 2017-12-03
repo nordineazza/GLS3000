@@ -1,0 +1,9 @@
+Create view v_ligne_service_chg as
+Select l.ID_LIGNE, p.NOM, p.PRENOM, c.LIB_CHG, g.LIB_GROUPE,l.H_TD, l.SEM, l.ANNEE 
+FROM LIGNE_SERVICE l, CHG_FCT c, GROUPE g, PERSONNEL p
+WHERE l.FID_CHGFCT is not null AND l.FID_CHGFCT = c.ID_CHG AND l.FID_GROUPE = g.ID_GROUPE AND l.FID_PERS = p.ID_PERS;
+
+Create OR REPLACE view v_ligne_service_ec as
+Select l.ID_LIGNE, p.NOM, p.PRENOM, g.LIB_GROUPE, e.LIBELLE_EC, l.H_CM, l.H_TD, l.H_EAD, l.H_TP, l.SEM, l.ANNEE 
+FROM LIGNE_SERVICE l, GROUPE g, EC e, PERSONNEL p
+WHERE l.FID_EC is not null AND l.FID_EC = e.ID_EC AND l.FID_GROUPE = g.ID_GROUPE AND l.FID_PERS = p.ID_PERS;

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+        {% block accueil %}
+        {% endblock accueil %}
+
+        {% block cours %}
+        {% endblock cours %}
+
+        {% block statut %}
+        {% endblock statut %}
+
+        {% block update %}
+        {% endblock update %}
+
+        {% block title %}GLS3000{% endblock title %}
+        {% block enseignant %}
+<div id="portfolio" class="portfolio-page container-fluid">
+
+<div class="row">
+
+    <!--( a ) Enseignant Page Fixed Image Portion -->
+
+    <div class="image-container col-md-3 col-sm-12" style="position:fixed;left: 0;">
+        <div class="mask">
+        </div>
+        <div class="main-heading">
+        </div>
+    </div>
+
+    <!--( b ) Enseignant Page Content -->
+
+    <div class="content-container col-md-9 col-sm-12" style="float:right">
+
+        <!--( A ) Enseignant -->
+
+        <div class="portfolio clearfix full-height">
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                    <div class="project-container">
+                        <div class="row" style="text-align: center">
+                            <img alt="404" style="width: 75%;" src="{{ app.rootRoute }}/web/img/404.png">
+                            <h2>La page que vous cherchez n'existe pas :-(</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+        {% endblock enseignant %}

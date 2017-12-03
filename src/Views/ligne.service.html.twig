@@ -1,0 +1,509 @@
+{% extends 'base.html.twig' %}
+
+{% block headStyle %} 
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css"/>
+
+{% endblock headStyle %}
+
+
+{% block accueil %}
+{% endblock accueil %}
+
+{% block update %}
+
+    <div id="contact" class="contact-page container-fluid">
+        <div class="row">
+            <!--( a ) Contact Page Fixed Image Portion -->
+
+            <div class="image-container col-md-3 col-sm-12" style="position:fixed;left: 0;">
+                <div class="mask">
+                </div>
+                <div class="main-heading">
+                    <h1>L2S</h1>
+                </div>
+            </div>
+
+            <!--( b ) Contact Page Content -->
+
+            <div class="content-container col-md-9 col-sm-12" style="float:right">
+
+                <!--( A ) Contact Form -->
+
+                <div class="clearfix full-height">
+                    <h2 class="small-heading">Lignes de services {{app.annee}}</h2>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                            <div class="contact-info">
+                                <div class="row">
+
+                                    <div class="row">
+                                        <div class = "col-sm-12 text-center">
+                                            <button class="btn btn-default" onClick="modif_ec()">EC</button>
+                                            <button class="btn btn-default" onClick="modif_chg()">Charges de fonctions</button>
+
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLigne"> <i class="fa fa-plus" aria-hidden="true"></i> </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden" id="chg">
+                                        <h2>Charges de fonctions </h2>
+
+                                        <table id="table_mchg" class="display table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    {#<th>ID ligne</th>#}
+                                                    <th>Enseignant</th>
+                                                    <th>Charge de fonction</th>
+                                                    <th>Groupe</th>
+                                                    <th>Heures</th>
+                                                    <th class="no-sort">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for element in chg%}
+                                                    <tr>
+                                                        {#<td>{{element.ID_LIGNE}}</td>#}
+                                                        <td><a href="{{path('getEnseignant', {'enseignant': element.NOM})}}">{{element.NOM}} {{element.PRENOM}}</a></td>
+                                                        <td>{{element.LIB_CHG}}</td>
+                                                        <td>{{element.LIB_GROUPE}}</td>
+                                                        <td>{{element.H_TD}}</td>
+                                                        <td> <button type="button" style="float:left;padding:4px 8px 4px 8px" class="btn btn-info" data-id="{{element.ID_LIGNE}}" data-nom="{{element.NOM}}" data-prenom="{{element.PRENOM}}" data-libchg="{{element.LIB_CHG}}" data-libgroupe="{{element.LIB_GROUPE}}" data-htd="{{element.H_TD}}" data-annee="{{element.ANNEE}}" data-toggle="modal" data-target="#modalChg"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                            <button type="button" style="float:right;padding:4px 8px 4px 8px" class="btn btn-danger" id="{{element.ID_LIGNE}}" onClick="supp(this, this.id)"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="ec">
+
+                                        <h2>EC</h2>
+
+                                        <table id="table_mec" class="display table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    {#<th>ID ligne</th>#}
+                                                    <th>Enseignant</th>
+                                                    <th>Matière</th>
+                                                    <th>Groupe</th>
+                                                    <th>Heures CM</th>
+                                                    <th>Heures TD</th>
+                                                    <th>Heures EAD</th>
+                                                    <th>Heures TP</th>
+                                                    <th>Semestre</th>
+                                                    <th class="no-sort">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for element in ec%}
+                                                    <tr>
+                                                        {#<td>{{element.ID_LIGNE}}</td>#}
+                                                        <td><a href="{{path('getEnseignant', {'enseignant': element.NOM})}}">{{element.NOM}} {{element.PRENOM}}</a></td>
+                                                        <td><a href="{{path('getCours', {'cours': element.LIBELLE_EC})}}">{{element.LIBELLE_EC}}</a></td>
+                                                        <td>{{element.LIB_GROUPE}}</td>
+                                                        <td>{{element.H_CM}}</td>
+                                                        <td>{{element.H_TD}}</td>
+                                                        <td>{{element.H_EAD}}</td>
+                                                        <td>{{element.H_TP}}</td>
+                                                        <td>{{element.SEM}}</td>
+                                                        <td> <button type="button" style="float:left;padding:4px 8px 4px 8px" class="btn btn-info" data-id="{{element.ID_LIGNE}}" data-nom="{{element.NOM}}" data-prenom="{{element.PRENOM}}" data-libec="{{element.LIBELLE_EC}}" data-libgroupe="{{element.LIB_GROUPE}}" data-hcm="{{element.H_CM}}" data-htd="{{element.H_TD}}" data-head="{{element.H_EAD}}" data-htp="{{element.H_TP}}" data-sem="{{element.SEM}}" data-annee="{{element.ANNEE}}" data-toggle="modal" data-target="#modalEc"> <i class="fa fa-pencil" aria-hidden="true"></i> </button>
+                                                            <button type="button" style="float:right;padding:4px 8px 4px 8px" class="btn btn-danger" id="{{element.ID_LIGNE}}" onClick="supp(this, this.id)"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Modal CHG-->
+                                    <div class="modal fade" id="modalChg" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel"> Modifier la ligne </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form role="form" method="POST" id="form_chg">
+                                                        <div>
+                                                            <label for="ens">Enseignant</label>
+                                                            <select class="form-control" name="FID_PERS" id="NOM">
+                                                                <option value="-1" id="ens_def"></option>
+
+                                                                {% for element in personnel%}
+                                                                    <option value="{{element.ID_PERS}}">{{element.NOM}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="chg">Charge</label>
+                                                            <select class="form-control" name="FID_CHGFCT" id="charge">
+                                                                <option value="-1" id="charge_def"></option>
+                                                                {% for element in charge%}
+                                                                    <option value="{{element.ID_CHG}}">{{element.LIB_CHG}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="LIB_GROUPE">Groupe</label>
+                                                            <select class="form-control" name="FID_GROUPE" id="LIB_GROUPE">
+                                                                <option value="-1" id="lib_groupe_def"></option>
+                                                                {% for element in groupe%}
+                                                                    <option value="{{element.ID_GROUPE}}">{{element.LIB_GROUPE}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="heure">Heures</label>
+                                                            <input type="text" class="form-control" id="heure" name="H_TD"> </input>
+                                                            <label for="chg">Année</label>
+                                                            <input type="text" class="form-control" id="annee" name="ANNEE"> </input>
+                                                            <input type="text" id="id_ligne" name="id_ligne" hidden/>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Sauver</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>		        
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal EC-->
+                                    <div class="modal fade" id="modalEc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Modifier la ligne</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form role="form" method="POST" id="form_ec">
+                                                        <div>
+                                                            <label for="NOM">Enseignant</label>
+                                                            <select class="form-control" name="FID_PERS" id="NOM">
+                                                                <option value="-1" id="ens_def"></option>
+
+                                                                {% for element in personnel%}
+                                                                    <option value="{{element.ID_PERS}}">{{element.NOM}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="LIBELLE_EC">Matière</label>
+                                                            <select class="form-control" name="FID_EC" id="LIBELLE_EC">
+                                                                <option value="-1" id="lib_ec_def"></option>
+                                                                {% for element in matiere%}
+                                                                    <option value="{{element.ID_EC}}">{{element.LIBELLE_EC}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="LIB_GROUPE">Groupe</label>
+                                                            <select class="form-control" name="FID_GROUPE" id="LIB_GROUPE">
+                                                                <option value="-1" id="lib_groupe_def"></option>
+
+                                                                {% for element in groupe%}
+                                                                    <option value="{{element.ID_GROUPE}}">{{element.LIB_GROUPE}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="H_CM">Heures CM</label>
+                                                            <input type="text" class="form-control" id="H_CM" name="H_CM"> </input>
+                                                            <label for="H_TD">Heures TD</label>
+                                                            <input type="text" class="form-control" id="H_TD" name="H_TD"> </input>
+                                                            <label for="H_EAD">Heures EAD</label>
+                                                            <input type="text" class="form-control" id="H_EAD" name="H_EAD"> </input>
+                                                            <label for="H_TP">Heures TP</label>
+                                                            <input type="text" class="form-control" id="H_TP" name="H_TP"> </input>
+                                                            <label for="SEM">Semestre</label>
+                                                            <input type="text" class="form-control" id="SEM" name="SEM"> </input>
+                                                            <label for="ANNEE">Année</label>
+                                                            <input type="text" class="form-control" id="ANNEE" name="ANNEE"> </input>
+                                                            <input type="text" id="id_ligne" name="id_ligne" hidden/>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" onClick="modif()">Fermer</button>
+                                                    <button type="submit" class="btn btn-primary">Sauver</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal nouvelle ligne-->
+                                    <div class="modal fade" id="modalLigne" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Créer une nouvelle ligne</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="nvelle_ligne">
+                                                        <div>
+                                                            <label for="FID_PERS">Enseignant</label>
+                                                            <select class="form-control" name="FID_PERS">
+                                                                {% for element in personnel%}
+                                                                    <option value="{{element.ID_PERS}}">{{element.NOM}} {{element.PRENOM}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="FID_GROUPE">Groupe</label>
+                                                            <select class="form-control" name="FID_GROUPE">
+                                                                <option value="0"></option>
+                                                                {% for element in groupe%}
+                                                                    <option value="{{element.ID_GROUPE}}">{{element.LIB_GROUPE}}</option>
+                                                                {% endfor %}
+                                                            </select>
+
+                                                            <label for="type">Sélectionner le type :</label>
+                                                            <select class="form-control" name="type" id="type">
+                                                                <option value="0"></option>
+                                                                <option value="1">Enseignement</option>
+                                                                <option value="2">Charge de fonction</option> 
+                                                            </select>
+                                                            <div id="type_choix" class="hidden">
+                                                                <div id="type_ec" class="hidden">
+
+                                                                    <label for="FID_EC">Matière</label>
+                                                                    <select class="form-control" name="FID_EC">
+                                                                        <option value="0"></option>
+                                                                        {% for element in matiere%}
+                                                                            <option value="{{element.ID_EC}}">{{element.LIBELLE_EC}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+
+                                                                    <label for="H_CM">Heures CM</label>
+                                                                    <input type="number" class="form-control heureCM" name="H_CM" min="0"> </input>				      		
+
+                                                                    <label for="H_EAD">Heures EAD</label>
+                                                                    <input type="number" class="form-control heureEAD" name="H_EAD" min="0"> </input>
+
+                                                                    <label for="H_TP">Heures TP</label>
+                                                                    <input type="number" class="form-control heureTP" name="H_TP" min="0"> </input>
+
+                                                                </div>
+
+                                                                <div id="type_chg" class="hidden">
+                                                                    <label for="FID_CHGFCT">Charge</label>
+                                                                    <select class="form-control" name="FID_CHGFCT">
+                                                                        <option value="0"></option>
+                                                                        {% for element in charge%}
+                                                                            <option value="{{element.ID_CHG}}">{{element.LIB_CHG}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+
+                                                                <label for="H_TD">Heures TD</label>
+                                                                <input type="number" class="form-control heureTD" name="H_TD" min="0"> </input>
+
+                                                                <label for="SEM">Semestre</label> 
+                                                                <input type="text" class="form-control sem" name="SEM"> </input>
+
+                                                                <label for="ANNEE">Année</label>
+                                                                <input type="text" class="form-control annee" name="ANNEE"> </input>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-primary">Sauver</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock update %}
+
+
+
+{%block scripts %}
+    <script src="{{ app.rootRoute }}/web/js/jquery.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.print.min.js"></script>
+    <script src="{{ app.rootRoute }}/web/js/bootstrap.js"></script>
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+                                                        function modif_chg() {
+                                                            $("#ec").addClass("hidden");
+                                                            $("#chg").removeClass("hidden");
+                                                        }
+
+                                                        function modif_ec() {
+                                                            $("#chg").addClass("hidden");
+                                                            $("#ec").removeClass("hidden");
+                                                        }
+
+
+                                                        function supp(elem, id) {
+                                                            $.ajax({
+                                                                method: "POST",
+                                                                url: "{{path('suppLigne')}}",
+                                                                data: {ID_LIGNE: id},
+                                                                success: function () {
+                                                                    $(elem).closest('tr').hide();
+                                                                }
+
+                                                            });
+                                                        }
+
+                                                        $(document).ready(function () {
+                                                            $('#modalChg').on('show.bs.modal', function (event) {
+                                                                var button = $(event.relatedTarget) // Button that triggered the modal
+                                                                // Extract info from data-* attributes
+                                                                var id = button.data('id')
+                                                                var nom = button.data('nom')
+                                                                var prenom = button.data('prenom')
+                                                                var libchg = button.data('libchg')
+                                                                var libgroupe = button.data('libgroupe')
+                                                                var htd = button.data('htd')
+                                                                var annee = button.data('annee')
+
+
+                                                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback)te the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                                                                var modal = $(this)
+                                                                modal.find('#ens_def').text(nom + " " + prenom)
+                                                                modal.find('#charge_def').text(libchg)
+                                                                modal.find('#lib_groupe_def').text(libgroupe)
+                                                                modal.find('#heure').val(htd)
+                                                                modal.find('#annee').val(annee)
+                                                                modal.find('#id_ligne').val(id)
+
+                                                            });
+
+                                                            $('#form_ec').on('submit', function (e) {
+                                                                e.preventDefault();
+                                                                $.ajax({
+                                                                    method: "POST",
+                                                                    data: $(this).serialize(),
+                                                                    url: "{{path('modifAjaxEC')}}",
+                                                                    success: function () {
+                                                                        location.href = location.href;
+                                                                    }
+                                                                });
+                                                            });
+
+                                                            $('#form_chg').on('submit', function (e) {
+                                                                e.preventDefault();
+                                                                $.ajax({
+                                                                    method: "POST",
+                                                                    data: $(this).serialize(),
+                                                                    url: "{{path('modifAjaxChg')}}",
+                                                                    success: function () {
+                                                                        location.href = location.href;
+                                                                    }
+                                                                });
+                                                            });
+
+
+                                                            $('#modalEc').on('show.bs.modal', function (event) {
+                                                                var button = $(event.relatedTarget) // Button that triggered the modal
+                                                                // Extract info from data-* attributes
+                                                                var id = button.data('id')
+                                                                var nom = button.data('nom')
+                                                                var prenom = button.data('prenom')
+                                                                var libec = button.data('libec')
+                                                                var libgroupe = button.data('libgroupe')
+                                                                var htd = button.data('htd')
+                                                                var hcm = button.data('hcm')
+                                                                var head = button.data('head')
+                                                                var htp = button.data('htp')
+                                                                var sem = button.data('sem')
+                                                                var annee = button.data('annee')
+
+                                                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback)te the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                                                                var modal = $(this)
+                                                                modal.find('#ens_def').text(nom + " " + prenom)
+                                                                modal.find('#lib_ec_def').text(libec)
+                                                                modal.find('#lib_groupe_def').text(libgroupe)
+                                                                modal.find('#H_CM').val(hcm)
+                                                                modal.find('#H_TD').val(htd)
+                                                                modal.find('#H_EAD').val(head)
+                                                                modal.find('#H_TP').val(htp)
+                                                                modal.find('#SEM').val(sem)
+                                                                modal.find('#ANNEE').val(annee)
+                                                                modal.find('#id_ligne').val(id)
+                                                            });
+
+                                                            $("#type").change(function () {
+                                                                if (this.value == 1) {
+                                                                    $("#type_chg").addClass("hidden");
+                                                                    $("#type_ec").removeClass("hidden");
+                                                                    $("#type_choix").removeClass("hidden");
+                                                                } else if (this.value == 2) {
+                                                                    $("#type_ec").addClass("hidden");
+                                                                    $("#type_chg").removeClass("hidden");
+                                                                    $("#type_choix").removeClass("hidden");
+                                                                } else {
+                                                                    $("#type_choix").addClass("hidden");
+                                                                }
+                                                            });
+
+                                                            $('#nvelle_ligne').on('submit', function (e) {
+                                                                e.preventDefault();
+                                                                $.ajax({
+                                                                    method: "POST",
+                                                                    url: "{{path('ajoutLigne')}}",
+                                                                    data: $(this).serialize(),
+                                                                    success: function () {
+                                                                        location.href = location.href;
+                                                                    }
+
+                                                                })
+
+                                                            });
+
+
+
+                                                            $('table.display').DataTable({
+                                                                language: {
+                                                                    processing: "Traitement en cours...",
+                                                                    search: "Rechercher&nbsp;:",
+                                                                    lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+                                                                    info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                                                                    infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                                                                    infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                                                                    infoPostFix: "",
+                                                                    loadingRecords: "Chargement en cours...",
+                                                                    zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                                                                    emptyTable: "Aucune donnée disponible dans le tableau",
+                                                                    paginate: {
+                                                                        first: "Premier",
+                                                                        previous: "Pr&eacute;c&eacute;dent",
+                                                                        next: "Suivant",
+                                                                        last: "Dernier"
+                                                                    },
+                                                                    aria: {
+                                                                        sortAscending: ": activer pour trier la colonne par ordre croissant",
+                                                                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                                                                    }
+                                                                },
+                                                                "order": [],
+                                                                "columnDefs": [{
+                                                                        "targets": 'no-sort',
+                                                                        "orderable": false,
+                                                                    }]
+                                                            });
+                                                        });
+
+    </script>
+{%endblock scripts%}

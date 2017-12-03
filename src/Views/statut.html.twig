@@ -1,0 +1,103 @@
+{% extends 'recherche.html.twig' %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+{% if recherche %}
+  <script>
+  $(function() {
+    $('#statut').autocomplete();
+    $("#statut").autocomplete({
+      source: {{statutJson | raw}}
+        });
+  });
+  {% endif %}
+
+  </script>
+
+{% endblock scripts %}
+
+{% block accueil %}
+{% endblock accueil %}
+
+{% block statut %}
+
+<div id="service" class="service-page container-fluid">
+    <div class="row">
+        <!--( a ) Portfolio Page Fixed Image Portion -->
+
+        <div class="image-container col-md-3 col-sm-12" style="position:fixed;left: 0;">
+            <div class="mask">
+            </div>
+            <div class="main-heading">
+                <h1>Statut</h1>
+            </div>
+        </div>
+
+        <!--( b ) Portfolio Page Content -->
+
+        <div class="content-container col-md-9 col-sm-12" style="float:right">
+
+            <!--( A ) Portfolio -->
+
+            <div class="clearfix">
+                <h2 class="small-heading">RECHERCHE PAR STATUT</h2>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-12">
+                        <div class="row">
+{% if recherche %}
+<center>
+<form class="form-inline" role="form" action="{{path('rechercheStatut')}}" method="GET" style="padding-bottom: 25px;">
+  <div class="form-group">
+    <input type="text" class="form-control" id="statut" name="statut" placeholder="Entrer le statut">
+  </div>
+  <button type="submit" class="filter">Rechercher</button>
+</form>
+</center>
+{% endif %}
+{% if not recherche %}
+
+<table id="table_id" class="display table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Statut</th>
+            <th>Année</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Heures réalisées</th>
+            <th>Heures HORCH</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for element in statut%}
+        <tr>
+            <td>{{element.STATUT}}</td>
+            <td>{{element.ANNEE}}</td>
+            <td><a href="{{path('getEnseignant', {'enseignant': element.NOM})}}">{{element.NOM}}</a></td>
+            <td><a href="{{path('getEnseignant', {'enseignant': element.NOM})}}">{{element.PRENOM}}</a></td>
+            <td>{{element.NB_H_HORSCH}}</td>
+        {% if element.NB_H_REAL > 0 %}
+            <td class="positif">{{element.NB_H_REAL}}</td>
+        {%elseif element.NB_H_REAL < 0 %}
+            <td class="negatif">{{element.NB_H_REAL}}</td>
+        {%else%}
+            <td>{{element.NB_H_REAL}}</td>
+        {%endif%}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock statut %}

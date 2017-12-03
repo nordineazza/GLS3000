@@ -1,0 +1,8 @@
+# Redirectionner tous les requêtes vers web/index.php pour que ça soit la seule entrée de l'application
+
+Options +FollowSymLinks +ExecCGI
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule (.*)  web/index.php [QSA,L]
+</IfModule>
